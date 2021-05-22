@@ -39,3 +39,7 @@ def data(user, score):
     conn.close
     
     return redirect(url_for('all'))
+
+
+if __name__ == '__main__':
+     app.run(debug=True, host='0.0.0.0')
