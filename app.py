@@ -18,7 +18,14 @@ def all():
     if request.method =='POST':
         return 0
     else:
-        return 0
+        conn = sqlite3.connect('./static/data/score.db')
+        curs = conn.cursor()
+        scores = []
+        rows = curs.execute("SELECT * FROM score")
+        for row in rows:
+            score = ({'user':row[1], 'score':row[2]})
+            scores.append(score)
+        return render_template('index.html', scores = scores)
 
 @app.route('/data/<user>/<score>', methods = ['POST', 'GET'])
 def data(user, score):
@@ -27,7 +34,7 @@ def data(user, score):
     Curs = conn.cursor()
     #executes the command to pass username and score
     Curs.execute("INSERT INTO task (user, score) VALUES((?),(?))", (user, score))
-    conn.commit ()
+    conn.commit()
     #closes database
     conn.close
     
