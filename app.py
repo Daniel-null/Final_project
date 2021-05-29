@@ -13,11 +13,14 @@ app = Flask(__name__)
 def info():
     return redirect(url_for('all'))
 
-@app.route('/all', methoods=(['GET', 'POST']))
+@app.route('/all', methods=(['GET', 'POST']))
 def all():
     if request.method =='POST':
-        return 0
+        user = request.form['user']
+        #we could add a date date = request.form['date']
+        return redirect(url_for('game', user = user))
     else:
+        #will call for scores, names, and maybe dates and pass it to the website.
         conn = sqlite3.connect('./static/data/score.db')
         curs = conn.cursor()
         scores = []
@@ -40,6 +43,12 @@ def data(user, score):
     
     return redirect(url_for('all'))
 
+@app.route('/game/<user>', methods=(['GET', 'POST']))
+def game(user):
+    #we can call the game from here
+    # store game score in a score variable
+    score = 0 #<<<<<<<<< placeholder 0
+    return redirect(url_for('data', user=user, score=score))
 
 if __name__ == '__main__':
      app.run(debug=True, host='0.0.0.0')
