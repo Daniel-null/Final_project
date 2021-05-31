@@ -42,7 +42,7 @@ def data(user, today, score):
     conn = sqlite3.connect('./static/data/score.db')
     Curs = conn.cursor()
     #executes the command to pass username and score
-    Curs.execute("INSERT INTO task (user, score, date) VALUES((?),(?),(?))", (user, score, today))
+    Curs.execute("INSERT INTO score (user, score, date) VALUES((?),(?),(?))", (user, score, today))
     conn.commit()
     #closes database
     conn.close
