@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Code Next </title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div id="inputForm">
+        <h1> Welcome, Please give us your name!</h1>
+        <form action="/all" method="post">
+            <input type="text" name="user"> <br>
+            <input type="submit"/>
+        </form>
+    </div> 
+    <div id="userInfo">
+        <h2> Score Board</h2>
+        <div>
+            <!-- FOR THE FUTURE, when the game is done, we should organize the score by highest to lowest-->
+            {% for score in scores %}
+            <h3> 
+                {{score["user"]}} {{score["score"]}} {{score["date"]}}
+            </h3> 
+            {% endfor %}
+        </div>
+    </div>
+    
+</body>
+</html>
