@@ -3,8 +3,12 @@ from flask import Flask, render_template, request, redirect, url_for, request, j
 from sense_hat import SenseHat
 from datetime import date
 import requests
-import sys
 import sqlite3 
+
+#allows us to call scripts from the machine ai folder
+import sys
+sys.path.insert(1, '~/Desktop/Final/machineAI')
+from machineAI import voice
 
 sense = SenseHat()
 
