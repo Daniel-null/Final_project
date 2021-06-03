@@ -5,10 +5,10 @@ from datetime import date
 import requests
 import sqlite3 
 
-#allows us to call scripts from the machine ai folder
+#this impoert allows us to read and call other scripts not in the same directory
 import sys
-#this allows python to read another directory for scripts
-sys.path.insert(0, '~/Desktop/Final/machineAI')
+#this allows python to actually read another directory for scripts
+sys.path.insert(0, '~/Desktop/Final/machineAI') #note you have to create a blank python file called __init__. This tells python that its a package it can import 
 #sys imported scripts from the machine ai folder
 from machineAI import voice
 
