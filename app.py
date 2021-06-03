@@ -7,7 +7,9 @@ import sqlite3
 
 #allows us to call scripts from the machine ai folder
 import sys
-sys.path.insert(1, '~/Desktop/Final/machineAI')
+#this allows python to read another directory for scripts
+sys.path.insert(0, '~/Desktop/Final/machineAI')
+#sys imported scripts from the machine ai folder
 from machineAI import voice
 
 sense = SenseHat()
