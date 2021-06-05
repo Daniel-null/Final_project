@@ -61,6 +61,16 @@ def game(user, today):
     listener = voice.AudioClassifier(model_file=voice.VOICE_MODEL, 
                                         labels_file=voice.VOICE_LABELS,
                                             audio_device_index=2)
+   if event.direction == "pressed":
+  
+      if event.direction == "up":
+      #the position of the dog will be up
+
+      elif event.direction == "down":
+      #the dog will then come down
+
+    sense.stick.direction_up = move_up
+    sense.stick.direction_down=move_down
     #we can call the game from here
     # store game score in a score variable
     score = 0 #<<<<<<<<< placeholder 0
