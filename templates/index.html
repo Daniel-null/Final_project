@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="inputForm">
-        <h1> Welcome, Please give us your name!</h1>
+        <h1> Welcome, Please enter your user name</h1>
         <form action="/all" method="post">
             <input type="text" name="user"> <br>
             <input type="submit"/>
@@ -20,7 +20,7 @@
             <!-- FOR THE FUTURE, when the game is done, we should organize the score by highest to lowest-->
             {% for score in scores %}
             <h3> 
-                {{score["user"]}} {{score["score"]}} {{score["date"]}}
+                {{score["user"]}}
             </h3> 
             {% endfor %}
         </div>

@@ -5,8 +5,11 @@ from datetime import date
 import requests
 import sys
 import sqlite3 
+#importing the class that hold the game designs 
+from designs import Dog
 
 sense = SenseHat()
+dog = Dog ()
 
 app = Flask(__name__)
 
@@ -19,10 +22,8 @@ def all():
     if request.method =='POST':
         #create html form to get user
         user = request.form['user']
-
         #time will be stored in a variable
         today = str(date.today())
-
         #the user and date is passed to the game
         return redirect(url_for('game', user = user, today=today))
     else:
@@ -30,11 +31,12 @@ def all():
         conn = sqlite3.connect('./static/data/score.db')
         curs = conn.cursor()
         scores = []
+        nameText = "Please enter your name"
         rows = curs.execute("SELECT * FROM score")
         for row in rows:
             score = ({'user':row[1], 'score':row[2], 'date':row[3]})
             scores.append(score)
-        return render_template('index.html', scores = scores)
+        return render_template('index.html', scores = scores, nameText = nameText)
 
 @app.route('/data/<user>/<today>/<score>', methods = ['POST', 'GET'])
 def data(user, today, score):
@@ -54,6 +56,8 @@ def game(user, today):
     #we can call the game from here
     # store game score in a score variable
     score = 0 #<<<<<<<<< placeholder 0
+
+    #add functions for game in this route 
     return redirect(url_for('data', user=user, today=today, score=score))
 
 if __name__ == '__main__':
