@@ -22,8 +22,10 @@ import threading
 
 import numpy as np
 
-import audio_recorder
-import mel_features
+sys.path.insert(1, '~/Desktop/Final/machineAI')
+
+from machineAI import audio_recorder
+from machineAI import mel_features
 
 import tflite_runtime.interpreter as tflite
 
