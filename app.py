@@ -36,7 +36,7 @@ def all():
         conn = sqlite3.connect('./static/data/score.db')
         curs = conn.cursor()
         scores = []
-        rows = curs.execute("SELECT * FROM score")
+        rows = curs.execute("SELECT * FROM score ORDER BY score DESC")
         for row in rows:
             score = ({'user':row[1], 'score':row[2], 'date':row[3]})
             scores.append(score)
