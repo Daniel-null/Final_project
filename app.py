@@ -71,16 +71,16 @@ def game(user, today):
                                             audio_device_index=2)
     
     def respond_to_voice(command):
-
+        print(command)
         label = command[0]
         global direction
-        if command.direction == D_UP:
+        if command[0] == 'go_up':
             direction = D_UP
-        elif command.direction == D_DOWN:
+        elif command[0] == 'go_down':
             direction = D_DOWN
-        elif command.direction == D_LEFT:
+        elif command[0] == 'go_left':
             direction = D_LEFT
-        elif command.direction == D_RIGHT:
+        elif command[0] == 'go_right':
             direction = D_RIGHT
 
     def joystick(event):
@@ -96,7 +96,6 @@ def game(user, today):
         elif event.direction == D_LEFT:
             direction = D_LEFT
 
-    sense.stick.direction_any = joystick
     while True:
 
         ### 2. RESPOND TO SPEECH CLASSIFICATIONS
@@ -108,6 +107,7 @@ def game(user, today):
             if direction == D_LEFT:
                 break
 
+    sense.stick.direction_any = joystick
 
     #we can call the game from here
     # store game score in a score variable
