@@ -57,6 +57,9 @@ def data(user, today, score):
 
 @app.route('/game/<user>/<today>', methods=(['GET', 'POST']))
 def game(user, today):
+    listener = voice.AudioClassifier(model_file=voice.VOICE_MODEL, 
+                                        labels_file=voice.VOICE_LABELS,
+                                            audio_device_index=2)
     #we can call the game from here
     # store game score in a score variable
     score = 0 #<<<<<<<<< placeholder 0
