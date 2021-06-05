@@ -19,9 +19,9 @@
         <div>
             <!-- FOR THE FUTURE, when the game is done, we should organize the score by highest to lowest-->
             {% for score in scores %}
-            <h3> 
-                {{score["user"]}}
-            </h3> 
+                <h3> 
+                    {{score["user"]}} {{score["score"]}} {{score["date"]}}
+                </h3> 
             {% endfor %}
         </div>
     </div>

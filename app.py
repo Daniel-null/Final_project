@@ -96,6 +96,8 @@ def game(user, today):
         elif event.direction == D_LEFT:
             direction = D_LEFT
 
+    sense.stick.direction_any = joystick
+
     while True:
 
         ### 2. RESPOND TO SPEECH CLASSIFICATIONS
@@ -105,16 +107,9 @@ def game(user, today):
             respond_to_voice(command)
             print(direction)
             if direction == D_LEFT:
-                break
+                score = 0 #<<<<<<<<< placeholder 0
+                return redirect(url_for('data', user=user, today=today, score=score))
 
-    sense.stick.direction_any = joystick
-
-    #we can call the game from here
-    # store game score in a score variable
-    score = 0 #<<<<<<<<< placeholder 0
-
-    #add functions for game in this route 
-    return redirect(url_for('data', user=user, today=today, score=score))
 
 if __name__ == '__main__':
      app.run(debug=True, host='0.0.0.0')
