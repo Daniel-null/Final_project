@@ -3,10 +3,16 @@ from flask import Flask, render_template, request, redirect, url_for, request, j
 from sense_hat import SenseHat
 from datetime import date
 import requests
-import sys
 import sqlite3 
 #importing the class that hold the game designs 
 from designs import Dog
+
+#this import allows us to read and call other scripts not in the same directory
+import sys
+#this allows python to actually read another directory for scripts
+sys.path.insert(0, '~/Desktop/Final/machineAI') #note you have to create a blank python file called __init__. This tells python that its a package it can import 
+#sys imported scripts from the machine ai folder
+from machineAI import voice
 
 sense = SenseHat()
 dog = Dog ()
@@ -31,12 +37,11 @@ def all():
         conn = sqlite3.connect('./static/data/score.db')
         curs = conn.cursor()
         scores = []
-        nameText = "Please enter your name"
         rows = curs.execute("SELECT * FROM score")
         for row in rows:
             score = ({'user':row[1], 'score':row[2], 'date':row[3]})
             scores.append(score)
-        return render_template('index.html', scores = scores, nameText = nameText)
+        return render_template('index.html', scores = scores)
 
 @app.route('/data/<user>/<today>/<score>', methods = ['POST', 'GET'])
 def data(user, today, score):
@@ -53,6 +58,9 @@ def data(user, today, score):
 
 @app.route('/game/<user>/<today>', methods=(['GET', 'POST']))
 def game(user, today):
+    listener = voice.AudioClassifier(model_file=voice.VOICE_MODEL, 
+                                        labels_file=voice.VOICE_LABELS,
+                                            audio_device_index=2)
     #we can call the game from here
     # store game score in a score variable
     score = 0 #<<<<<<<<< placeholder 0
