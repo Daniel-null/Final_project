@@ -1,9 +1,11 @@
 from sqlite3.dbapi2 import Cursor
 from flask import Flask, render_template, request, redirect, url_for, request, json, jsonify, current_app as app
 from sense_hat import SenseHat
+from sense_hat import stick
 from datetime import date
 import requests
 import sqlite3 
+from random import randint
 #importing the class that hold the game designs 
 from designs import Dog
 
@@ -13,6 +15,12 @@ import sys
 sys.path.insert(0, '~/Desktop/Final/machineAI') #note you have to create a blank python file called __init__. This tells python that its a package it can import 
 #sys imported scripts from the machine ai folder
 from machineAI import voice
+
+D_UP = stick.DIRECTION_UP
+D_DOWN = stick.DIRECTION_DOWN
+D_LEFT = stick.DIRECTION_LEFT
+D_RIGHT = stick.DIRECTION_RIGHT
+direction = D_RIGHT
 
 sense = SenseHat()
 dog = Dog ()
@@ -61,16 +69,24 @@ def game(user, today):
     listener = voice.AudioClassifier(model_file=voice.VOICE_MODEL, 
                                         labels_file=voice.VOICE_LABELS,
                                             audio_device_index=2)
-   if event.direction == "pressed":
-  
-      if event.direction == "up":
-      #the position of the dog will be up
+    
 
-      elif event.direction == "down":
-      #the dog will then come down
+    def joystick(event):
+        global direction        
+        if event.direction == D_RIGHT:
+            direction = D_RIGHT
+        elif event.direction == D_UP:
+            #the position of the dog will be up
+            direction = D_UP
+        elif event.direction == D_DOWN:
+            #the dog will then come down
+            direction = D_DOWN
+        elif event.direction == D_LEFT:
+            direction = D_LEFT
 
-    sense.stick.direction_up = move_up
-    sense.stick.direction_down=move_down
+    sense.stick.direction_any = joystick
+
+    print(direction)
     #we can call the game from here
     # store game score in a score variable
     score = 0 #<<<<<<<<< placeholder 0
