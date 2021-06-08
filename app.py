@@ -15,7 +15,10 @@ sys.path.insert(0, '~/Desktop/Final/machineAI') #note you have to create a blank
 from machineAI import voice
 
 sense = SenseHat()
+#variables for the game 
 dog = Dog ()
+gameRunTime = True  
+level = 0 
 
 app = Flask(__name__)
 
@@ -61,12 +64,23 @@ def game(user, today):
     listener = voice.AudioClassifier(model_file=voice.VOICE_MODEL, 
                                         labels_file=voice.VOICE_LABELS,
                                             audio_device_index=2)
-    #we can call the game from here
+    #we can call the game from here 
     # store game score in a score variable
     score = 0 #<<<<<<<<< placeholder 0
 
     #add functions for game in this route 
     return redirect(url_for('data', user=user, today=today, score=score))
+while(gameRunTime == True):
+    #code for the game 
+    sense.setpixels("Game start")
+    level += 1 
+    if(level == 1):
+        sense.setpixels(dog.neutral)
+        sleep(2)
+        
 
+
+#if(gameRunTime == False):
+#   sense.setpixels("Game Over")
 if __name__ == '__main__':
      app.run(debug=True, host='0.0.0.0')
