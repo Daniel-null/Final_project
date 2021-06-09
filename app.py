@@ -1,11 +1,14 @@
 from sqlite3.dbapi2 import Cursor
 from flask import Flask, render_template, request, redirect, url_for, request, json, jsonify, current_app as app
 from sense_hat import SenseHat
+from sense_hat import stick
 from datetime import date
 import requests
 import sqlite3 
+from random import randint
 #importing the class that hold the game designs 
 from designs import Dog
+from time import sleep 
 
 #this import allows us to read and call other scripts not in the same directory
 import sys
@@ -14,11 +17,16 @@ sys.path.insert(0, '~/Desktop/Final/machineAI') #note you have to create a blank
 #sys imported scripts from the machine ai folder
 from machineAI import voice
 
+D_UP = stick.DIRECTION_UP
+D_DOWN = stick.DIRECTION_DOWN
+D_LEFT = stick.DIRECTION_LEFT
+D_RIGHT = stick.DIRECTION_RIGHT
+direction = D_RIGHT
+
 sense = SenseHat()
 #variables for the game 
 dog = Dog ()
-gameRunTime = True  
-level = 0 
+#list to use for the condition that the player jumps at the appropriate time
 
 app = Flask(__name__)
 
@@ -63,24 +71,71 @@ def data(user, today, score):
 def game(user, today):
     listener = voice.AudioClassifier(model_file=voice.VOICE_MODEL, 
                                         labels_file=voice.VOICE_LABELS,
-                                            audio_device_index=2)
-    #we can call the game from here 
+                                            audio_device_index=0)
+    
     # store game score in a score variable
     score = 0 #<<<<<<<<< placeholder 0
+    #these lists 
+    obMove = [dog.obStage1, dog.obStage2, dog.obStage3]
+    upDog = [dog.overOb1, dog.overOb2,dog.overOb3,dog.overOb4]
+    gameRunTime = True  
+    level = 0 
+    global direction
 
     #add functions for game in this route 
+    #return redirect(url_for('data', user=user, today=today, score=score))
+         
+    def respond_to_voice(command):
+        print(command)
+        label = command[0]
+        global direction
+        if command[0] == 'g_up':
+            direction = D_UP
+        elif command[0] == 'go_down':
+            direction = D_DOWN
+        elif command[0] == 'go_left':
+            direction = D_LEFT
+        elif command[0] == 'go_right':
+            direction = D_RIGHT
+
+    def joystick(event):
+        global direction        
+        if event.direction == D_RIGHT:
+            direction = D_RIGHT
+        elif event.direction == D_UP:
+            #the position of the dog will be up
+            direction = D_UP
+        elif event.direction == D_DOWN:
+            #the dog will then come down
+            direction = D_DOWN
+        elif event.direction == D_LEFT:
+            direction = D_LEFT
+
+    sense.stick.direction_any = joystick
+
+    while gameRunTime:
+        #game starts here 
+        sense.set_pixels(dog.neutral)
+        sleep(1)
+        if direction == D_UP: 
+            sense.set_pixels(upDog[1]) 
+            sleep(1)
+            gameRunTime = False
+        ### 2. RESPOND TO SPEECH CLASSIFICATIONS
+        command = listener.next(block=False)
+        if command:
+            print(command)
+            respond_to_voice(command)
+            print(direction)
+            if direction == D_LEFT:
+               score = 0 #<<<<<<<<< placeholder 0
+    sense.set_pixels(dog.gameOver)
+    sleep(2)
+    sense.show_message("You Lost!")
+                
     return redirect(url_for('data', user=user, today=today, score=score))
-while(gameRunTime == True):
-    #code for the game 
-    sense.setpixels("Game start")
-    level += 1 
-    if(level == 1):
-        sense.setpixels(dog.neutral)
-        sleep(2)
-        
 
 
-#if(gameRunTime == False):
-#   sense.setpixels("Game Over")
+
 if __name__ == '__main__':
      app.run(debug=True, host='0.0.0.0')
