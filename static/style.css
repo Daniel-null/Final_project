@@ -1,0 +1,19 @@
+img{  
+    width: 15%;
+    height: 15%;
+    border-radius: 50%;
+    float: left;
+    padding-right: 15px;
+    
+}
+
+#howTo{
+    padding-left: 150px;
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+#inputForm{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

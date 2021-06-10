@@ -49,8 +49,8 @@ class Dog:
     c, c, db, br, br, c, c, c, 
     br, c, db, br, w, c, c, c, 
     c, br, r, r, br, c, c, c, 
-    c, br, br, br, c, r, r, c, 
-    c, br, c, br, c, r, r, c, 
+    c, br, br, br, c, d, d, c, 
+    c, br, c, br, c, d, d, c, 
     l, l, l, l, l, l, l, l 
     ]
     overOb1 = [
