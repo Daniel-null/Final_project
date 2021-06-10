@@ -1,7 +1,8 @@
 from sqlite3.dbapi2 import Cursor
 from flask import Flask, render_template, request, redirect, url_for, request, json, jsonify, current_app as app
-from sense_emu import SenseHat
-from sense_emu import stick
+# for prez change this to sense_emu
+from sense_hat import SenseHat
+from sense_hat import stick
 from datetime import date
 import requests
 import sqlite3 
@@ -91,7 +92,7 @@ def game(user, today):
         print(command)
         label = command[0]
         global direction
-        if command[0] == 'g_up':
+        if command[0] == 'go_up':
             direction = D_UP
         elif command[0] == 'go_down':
             direction = D_DOWN
@@ -115,15 +116,6 @@ def game(user, today):
 
     sense.stick.direction_any = joystick
 
-    ### 2. RESPOND TO SPEECH CLASSIFICATIONS ~ ask what this code is for 
-    #command = listener.next(block=False)
-        #if command:
-            #print(command)
-            #respond_to_voice(command)
-            #print(direction)
-            #if direction == D_LEFT:
-               #score = 0 #<<<<<<<<< placeholder 0
-    #game starts here 
     sense.show_message("Level 1")  
     sense.set_pixels(dog.neutral)
     sleep(1)
