@@ -6,20 +6,30 @@
     <title> Code Next </title>
     <link rel="stylesheet" href="static/style.css">
 </head>
-<body>
+
+  
+  <style>
+input[type="submit"]{
+    background-color:#555;
+    color: #fff;
+    border-radius: 10px;
+}
+</style>
+
+<body style="background-color:#19B5FE;">
     <div id="inputForm">
-        <h1> Welcome, Please enter your user name</h1>
+        <h1 style="color:#8D5524"><em><b>Welcome, Please enter your username</b></em></h1>
         <form action="/all" method="post">
-            <input type="text" name="user"> <br>
+            <input style="background-color:#CCFFE5" type="text" name="user" placeholder="Enter your name" > <br>
             <input type="submit"/>
         </form>
     </div> 
     <div id="userInfo">
-        <h2> Score Board</h2>
+        <em><h2 style="color:#33FF99"> Score Board</h2></em>
         <div>
             <!-- FOR THE FUTURE, when the game is done, we should organize the score by highest to lowest-->
             {% for score in scores %}
-                <h3> 
+                <h3 style="color:#CCFFE5">
                     {{score["user"]}} {{score["score"]}} {{score["date"]}}
                 </h3> 
             {% endfor %}
