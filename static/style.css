@@ -1,3 +1,6 @@
+body{
+    background-color:#bd9dea;
+}
 img{  
     width: 15%;
     height: 15%;
@@ -6,14 +9,32 @@ img{
     padding-right: 15px;
     
 }
+h2, p, h1{
+    color:white;
+}
+h2{
+    font-family: 'Viaoda Libre', cursive;
+    font-size: 30px;
+}
 
+#scoreBoard{
+    color:white;
+    font-family: 'Mate SC', serif;
+}
+#scoreElements{
+    color:#f2c76e;
+    font-size: 20px;
+}
 #howTo{
-    padding-left: 150px;
+    padding-left: 100px;
     padding-bottom: 50px;
     padding-top: 50px;
 }
-#inputForm{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+#inputForm, #userInfo{
+    text-align: center;
+    font-family: 'Mate SC', serif;
+}
+#instructions{
+    font-family: 'Mate SC', serif;
+    font-size: 20px;
 }

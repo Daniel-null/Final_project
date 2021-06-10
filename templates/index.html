@@ -5,12 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Doggy Run </title>
     <link rel="stylesheet" href="static/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Viaoda+Libre&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Mate+SC&family=Viaoda+Libre&display=swap" rel="stylesheet">
 </head>
 
   
   <style>
 input[type="submit"]{
-    background-color:#555;
+    background-color:#f87b7b;
     color: #fff;
     border-radius: 10px;
 }
@@ -23,17 +27,15 @@ input[type="submit"]{
     <div id="howTo">
         <!-- Placeholder name for game-->
         <h2> <img src="static/icon.png"> Doggy Run </h2>
-            <p style="color:#8D5524"> 
-              <b>
-                <i>
+            <p id="instructions"> 
+                To play this game, you must have a Raspberry Pi and Sense Hat. To control the dog, you can use the Sensehat Joystick to move upward 
+                or say "Go Up" into your microphone. So plug up your Pi in, and set up your microphone!
                 To play this game, you must have a Raspberry Pi and 
                 Sense Hat. To control the dog, you can use the 
                 Sensehat Joystick to move upward 
                 or say "Go Up" into your microphone. 
                 So plug up your Pi in, and set up your microphone! 
                 Hope you have fun!
-                </i>
-              </b>
             </p>
         </div>
         
@@ -41,16 +43,16 @@ input[type="submit"]{
     <div id="inputForm">
         <h1>Enter a username</h1>
         <form action="/all" method="post">
-            <input style="background-color:#CCFFE5" type="text" name="user" placeholder="Enter a username" > <br>
+            <input style="background-color:#e9dddb" type="text" name="user" placeholder="Enter a username" > <br>
             <input type="submit"/>
         </form>
     </div> 
     <div id="userInfo">
-        <em><h2 style="color:#33FF99"> Score Board</h2></em>
+        <h1 id="scoreBoard"> Score Board</h2>
         <div>
             <!-- FOR THE FUTURE, when the game is done, we should organize the score by highest to lowest-->
             {% for score in scores %}
-                <h3 style="color:#CCFFE5">
+                <h3 id="scoreElements">
                     {{score["user"]}} {{score["score"]}} {{score["date"]}}
                 </h3> 
             {% endfor %}
