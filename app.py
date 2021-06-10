@@ -3,12 +3,15 @@ from flask import Flask, render_template, request, redirect, url_for, request, j
 from sense_emu import SenseHat
 from sense_emu import stick
 from datetime import date
+from time import clock, sleep
 import requests
 import sqlite3 
 from random import randint
 #importing the class that hold the game designs 
 from designs import Dog
 from time import sleep 
+import threading
+import time
 
 #this import allows us to read and call other scripts not in the same directory
 import sys
@@ -30,6 +33,14 @@ dog = Dog ()
 
 app = Flask(__name__)
 
+#time while function
+def counter():
+    global clockT
+    clockT = 0
+    while clockT:
+        clockT += 1
+        time.sleep(1)
+
 @app.route('/')
 def info():
     return redirect(url_for('all'))
@@ -42,7 +53,7 @@ def all():
         #time will be stored in a variable
         today = str(date.today())
         #the user and date is passed to the game
-        return redirect(url_for('game', user = user, today=today))
+        return redirect(url_for('game', user = user, today=today, clockT=clockT))
     else:
         #will call for scores, names, and maybe dates and pass it to the website.
         conn = sqlite3.connect('./static/data/score.db')
@@ -71,7 +82,7 @@ def data(user, today, score):
 def game(user, today):
     listener = voice.AudioClassifier(model_file=voice.VOICE_MODEL, 
                                         labels_file=voice.VOICE_LABELS,
-                                            audio_device_index=0)
+                                            audio_device_index=2)
     
     # store game score in a score variable
     score = 0 #<<<<<<<<< placeholder 0
@@ -128,6 +139,8 @@ def game(user, today):
     sense.set_pixels(dog.neutral)
     sleep(1)
     while gameRunTime:
+        count_thread = threading.Thread(target=counter)
+        count_thread.start()
         # LEVEL 1  
         for i in range(len(obMove)): 
             sense.set_pixels(obMove[i])
