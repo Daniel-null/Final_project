@@ -54,7 +54,7 @@ def all():
         #time will be stored in a variable
         today = str(date.today())
         #the user and date is passed to the game
-        return redirect(url_for('game', user = user, today=today, clockT=clockT))
+        return redirect(url_for('game', user = user, today=today))
     else:
         #will call for scores, names, and maybe dates and pass it to the website.
         conn = sqlite3.connect('./static/data/score.db')
