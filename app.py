@@ -4,12 +4,15 @@ from flask import Flask, render_template, request, redirect, url_for, request, j
 from sense_hat import SenseHat
 from sense_hat import stick
 from datetime import date
+from time import clock, sleep
 import requests
 import sqlite3 
 from random import randint
 #importing the class that hold the game designs 
 from designs import Dog
 from time import sleep 
+import threading
+import time
 
 #this import allows us to read and call other scripts not in the same directory
 import sys
@@ -30,6 +33,15 @@ dog = Dog ()
 #list to use for the condition that the player jumps at the appropriate time
 
 app = Flask(__name__)
+
+#time while function
+def counter():
+    global clockT
+    clockT = 0
+    while clockT:
+        clockT += 1
+        time.sleep(1)
+        print(clockT)
 
 @app.route('/')
 def info():
@@ -119,7 +131,12 @@ def game(user, today):
     sense.show_message("Level 1")  
     sense.set_pixels(dog.neutral)
     sleep(1)
+
+    count_thread = threading.Thread(target=counter)
+    count_thread.start()
+    
     while gameRunTime:
+
         # LEVEL 1  
         for i in range(len(obMove)): 
             sense.set_pixels(obMove[i])
