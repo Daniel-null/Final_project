@@ -106,27 +106,36 @@ def game(user, today):
         global direction
         if command[0] == 'go_up':
             direction = D_UP
+            print(direction)
         elif command[0] == 'go_down':
             direction = D_DOWN
+            print(direction)
         elif command[0] == 'go_left':
             direction = D_LEFT
+            print(direction)
         elif command[0] == 'go_right':
             direction = D_RIGHT
+            print(direction)
 
     def joystick(event):
         global direction        
         if event.direction == D_RIGHT:
             direction = D_RIGHT
+            print(direction)
         elif event.direction == D_UP:
             #the position of the dog will be up
             direction = D_UP
+            print(direction)
         elif event.direction == D_DOWN:
             #the dog will then come down
             direction = D_DOWN
+            print(direction)
         elif event.direction == D_LEFT:
             direction = D_LEFT
+            print(direction)
 
     sense.stick.direction_any = joystick
+
 
     sense.show_message("Level 1")  
     sense.set_pixels(dog.neutral)
@@ -134,14 +143,25 @@ def game(user, today):
 
     count_thread = threading.Thread(target=counter)
     count_thread.start()
-    
+
     while gameRunTime:
+        command = listener.next(block=False)
+        if command:
+            print(command)
+            respond_to_voice(command)
+            print(direction)
 
         # LEVEL 1  
         for i in range(len(obMove)): 
             sense.set_pixels(obMove[i])
             sleep(delay)
             lastPixels = obMove[i]
+            command = listener.next(block=False)
+            if command:
+                print(command)
+                respond_to_voice(command)
+                print(direction)
+
             if not gameRunTime:
                 break
         if direction == D_UP:
