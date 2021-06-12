@@ -131,9 +131,12 @@ def game(user, today):
     sense.show_message("Level 1")  
     sense.set_pixels(dog.neutral)
     sleep(1)
+
+    count_thread = threading.Thread(target=counter)
+    count_thread.start()
+    
     while gameRunTime:
-        count_thread = threading.Thread(target=counter)
-        count_thread.start()
+
         # LEVEL 1  
         for i in range(len(obMove)): 
             sense.set_pixels(obMove[i])
