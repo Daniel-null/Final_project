@@ -34,6 +34,10 @@ dog = Dog ()
 
 app = Flask(__name__)
 
+listener = voice.AudioClassifier(model_file=voice.VOICE_MODEL, 
+                                    labels_file=voice.VOICE_LABELS,
+                                        audio_device_index=2)
+
 #time while function
 def counter():
     global clockT
@@ -82,9 +86,9 @@ def data(user, today, score):
 
 @app.route('/game/<user>/<today>', methods=(['GET', 'POST']))
 def game(user, today):
-    listener = voice.AudioClassifier(model_file=voice.VOICE_MODEL, 
-                                        labels_file=voice.VOICE_LABELS,
-                                            audio_device_index=2)
+    #listener = voice.AudioClassifier(model_file=voice.VOICE_MODEL, 
+    #                                    labels_file=voice.VOICE_LABELS,
+    #                                        audio_device_index=2)
     
     # store game score in a score variable
     score = 0 #<<<<<<<<< placeholder 0
