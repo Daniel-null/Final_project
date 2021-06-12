@@ -161,6 +161,7 @@ def game(user, today):
                 print(direction)
             if not gameRunTime:
                 break
+            
         if direction == D_UP:
             direction = D_DOWN
             for i in range(len(upDog)):

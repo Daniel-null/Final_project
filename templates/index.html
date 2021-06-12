@@ -47,7 +47,6 @@ input[type="submit"]{
     <div id="userInfo">
         <h1 id="scoreBoard"> Score Board</h2>
         <div>
-            <!-- FOR THE FUTURE, when the game is done, we should organize the score by highest to lowest-->
             {% for score in scores %}
                 <h3 id="scoreElements">
                     {{score["user"]}} {{score["score"]}} {{score["date"]}}
