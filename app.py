@@ -136,14 +136,21 @@ def game(user, today):
     count_thread.start()
     
     while gameRunTime:
-
         # LEVEL 1  
         for i in range(len(obMove)): 
             sense.set_pixels(obMove[i])
             sleep(delay)
             lastPixels = obMove[i]
+            command = listener.next(block=False)
+            if command:
+                print(command)
+                respond_to_voice(command)
+                print(direction)
+                if direction == D_LEFT:
+                    break
             if not gameRunTime:
                 break
+            
         if direction == D_UP:
             direction = D_DOWN
             for i in range(len(upDog)):
