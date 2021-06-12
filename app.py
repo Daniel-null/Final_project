@@ -145,11 +145,6 @@ def game(user, today):
     count_thread.start()
 
     while gameRunTime:
-        command = listener.next(block=False)
-        if command:
-            print(command)
-            respond_to_voice(command)
-            print(direction)
 
         # LEVEL 1  
         for i in range(len(obMove)): 
@@ -158,10 +153,8 @@ def game(user, today):
             lastPixels = obMove[i]
             command = listener.next(block=False)
             if command:
-                print(command)
                 respond_to_voice(command)
                 print(direction)
-
             if not gameRunTime:
                 break
         if direction == D_UP:
