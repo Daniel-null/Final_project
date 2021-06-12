@@ -41,6 +41,7 @@ def counter():
     while clockT:
         clockT += 1
         time.sleep(1)
+        print(clockT)
 
 @app.route('/')
 def info():
