@@ -72,7 +72,7 @@ def data(user, today, score):
 def game(user, today):
     listener = voice.AudioClassifier(model_file=voice.VOICE_MODEL, 
                                         labels_file=voice.VOICE_LABELS,
-                                            audio_device_index=0)
+                                            audio_device_index=2)
     
     # store game score in a score variable
     score = 0 #<<<<<<<<< placeholder 0
